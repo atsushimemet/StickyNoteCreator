@@ -110,7 +110,7 @@ app.post('/api/format', authenticateToken, (req, res) => {
 
 // SPAルーティング対応（本番環境用）
 if (process.env.NODE_ENV === 'production') {
-  app.get('*', (req, res) => {
+  app.get('*', (_req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));
   });
 }
