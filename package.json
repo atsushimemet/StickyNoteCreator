@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "server": "tsx server/index.ts",
     "dev:full": "concurrently \"npm run server\" \"npm run dev\"",
-    "start": "node dist/server/index.js"
+    "start": "npm run build && tsx server/index.ts"
   },
   "dependencies": {
     "react": "^18.2.0",
