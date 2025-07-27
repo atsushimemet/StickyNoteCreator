@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import cors from 'cors';
 import express from 'express';
 import jwt from 'jsonwebtoken';
+import path from 'path';
 import { Book, PostData } from '../src/types';
 
 // Expressの型拡張
@@ -20,6 +21,11 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 
 app.use(cors());
 app.use(express.json());
+
+// 静的ファイル配信（本番環境用）
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../dist')));
+}
 
 // 簡易認証ミドルウェア
 const authenticateToken = (req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -102,6 +108,13 @@ app.post('/api/format', authenticateToken, (req, res) => {
   }
 });
 
+// SPAルーティング対応（本番環境用）
+if (process.env.NODE_ENV === 'production') {
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
+  });
+}
+
 // 投稿フォーマット関数
 function formatPost(postTitle: string, targetAudience: string, books: Book[]): string {
   let output = '';
@@ -169,4 +182,5 @@ function formatPost(postTitle: string, targetAudience: string, books: Book[]): s
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 }); 
