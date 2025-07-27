@@ -11,8 +11,8 @@ RUN npm ci
 # ソースコードをコピー
 COPY . .
 
-# ビルド
-RUN npm run build
+# TypeScriptコンパイルとビルド
+RUN npm run build:all
 
 EXPOSE 3001
 
