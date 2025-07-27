@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
+    "build:server": "tsc -p tsconfig.server.json",
+    "build:all": "npm run build && npm run build:server",
     "preview": "vite preview",
     "server": "tsx server/index.ts",
     "dev:full": "concurrently \"npm run server\" \"npm run dev\"",
-    "start": "npm run build && tsx server/index.ts"
+    "start": "npm run build:all && tsx server/index.ts"
   },
   "dependencies": {
     "react": "^18.2.0",
