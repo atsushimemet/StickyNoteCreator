@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "server": "tsx server/index.ts",
     "dev:full": "concurrently \"npm run server\" \"npm run dev\"",
-    "start": "npm run build:all && tsx server/index.ts"
+    "start": "node dist/server/server/index.js"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -19,7 +19,8 @@
     "express": "^4.18.2",
     "cors": "^2.8.5",
     "jsonwebtoken": "^9.0.2",
-    "bcryptjs": "^2.4.3"
+    "bcryptjs": "^2.4.3",
+    "tsx": "^4.6.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
@@ -35,7 +36,6 @@
     "tailwindcss": "^3.3.6",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
-    "tsx": "^4.6.2",
     "concurrently": "^8.2.2"
   },
   "keywords": ["books", "price", "comparison", "sticky-note"],
