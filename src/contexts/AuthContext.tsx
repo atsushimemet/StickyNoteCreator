@@ -82,10 +82,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           }));
         } else {
           // 2回目以降のログインは2段階認証が必要
+          // パスワード変更が必要な場合はそのまま
+          const requiresPasswordChange = localStorage.getItem('requiresPasswordChange') === 'true';
           setAuthState(prev => ({
             ...prev,
             isAuthenticated: true,
-            isTwoFactorEnabled: true,
+            isTwoFactorEnabled: !requiresPasswordChange, // パスワード変更が必要な場合は2段階認証をスキップ
+            requiresPasswordChange: requiresPasswordChange,
           }));
         }
         return true;
@@ -100,11 +103,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('twoFactorCode');
+    // requiresPasswordChangeの状態は保持する
+    const requiresPasswordChange = localStorage.getItem('requiresPasswordChange') === 'true';
     setAuthState({
       isInitialized: true,
       isAuthenticated: false,
       isTwoFactorEnabled: false,
-      requiresPasswordChange: false,
+      requiresPasswordChange: requiresPasswordChange,
     });
   };
 
