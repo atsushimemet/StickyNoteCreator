@@ -7,6 +7,9 @@ const LoginForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // 初回ログインかどうかを判定
+  const isFirstLogin = !localStorage.getItem('adminPassword');
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -34,20 +37,22 @@ const LoginForm: React.FC = () => {
           <p className="mt-2 text-center text-sm text-gray-600">
             パスワードを入力してログインしてください
           </p>
-          <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-            <h3 className="text-sm font-medium text-yellow-800 mb-2">
-              初回ログイン用パスワード
-            </h3>
-            <p className="text-sm text-yellow-700 mb-2">
-              初回ログイン時は以下のパスワードを使用してください：
-            </p>
-            <code className="block text-lg font-mono text-yellow-900 bg-yellow-100 p-2 rounded">
-              z95dt8bra4mlful3q53zx
-            </code>
-            <p className="text-xs text-yellow-600 mt-2">
-              ※初回ログイン後、新しいパスワードの設定が必要です
-            </p>
-          </div>
+          {isFirstLogin && (
+            <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <h3 className="text-sm font-medium text-yellow-800 mb-2">
+                初回ログイン用パスワード
+              </h3>
+              <p className="text-sm text-yellow-700 mb-2">
+                初回ログイン時は以下のパスワードを使用してください：
+              </p>
+              <code className="block text-lg font-mono text-yellow-900 bg-yellow-100 p-2 rounded">
+                z95dt8bra4mlful3q53zx
+              </code>
+              <p className="text-xs text-yellow-600 mt-2">
+                ※初回ログイン後、新しいパスワードの設定が必要です
+              </p>
+            </div>
+          )}
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div>

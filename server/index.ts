@@ -24,7 +24,7 @@ app.use(express.json());
 
 // 静的ファイル配信（本番環境用）
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../dist')));
+  app.use(express.static(path.join(__dirname, '../../../dist')));
 }
 
 // 簡易認証ミドルウェア
@@ -111,7 +111,7 @@ app.post('/api/format', authenticateToken, (req, res) => {
 // SPAルーティング対応（本番環境用）
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (_req, res) => {
-    res.sendFile(path.join(__dirname, '../dist/index.html'));
+    res.sendFile(path.join(__dirname, '../../../dist/index.html'));
   });
 }
 

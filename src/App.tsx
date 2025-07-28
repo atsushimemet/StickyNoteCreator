@@ -3,7 +3,6 @@ import BookForm from './components/BookForm';
 import LoginForm from './components/LoginForm';
 import OutputDisplay from './components/OutputDisplay';
 import PasswordChange from './components/PasswordChange';
-import TwoFactorAuth from './components/TwoFactorAuth';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { Book, PostData } from './types';
 
@@ -85,10 +84,6 @@ function AppContent() {
 
   if (authState.requiresPasswordChange) {
     return <PasswordChange />;
-  }
-
-  if (authState.isTwoFactorEnabled) {
-    return <TwoFactorAuth />;
   }
 
   return (
