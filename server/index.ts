@@ -15,7 +15,7 @@ declare global {
 }
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = parseInt(process.env.PORT || '3001', 10);
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 
@@ -180,7 +180,8 @@ function formatPost(postTitle: string, targetAudience: string, books: Book[]): s
   return output;
 }
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`Server bound to 0.0.0.0:${PORT}`);
 }); 
