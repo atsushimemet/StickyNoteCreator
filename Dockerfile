@@ -17,7 +17,7 @@ RUN npm run build:all
 # 開発依存関係を削除してイメージサイズを削減
 RUN npm prune --production
 
-EXPOSE 3000 3001
+EXPOSE $PORT
 
 # 本番環境用のコマンド
 CMD ["npm", "start"] 
